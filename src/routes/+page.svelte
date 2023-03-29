@@ -7,6 +7,6 @@
 </script>
 <Scanner bind:result bind:this={scanner} bind:useFlashLight></Scanner>
 {#if (useFlashLight)}
-    <button on:click={scanner.enableFlash}>on</button>
+    <button on:click={scanner.isTorchOn ? scanner.disableFlash : scanner.enableFlash}>{scanner.isTorchOn ? "off" : "on"}</button>
 {/if}
 {result}

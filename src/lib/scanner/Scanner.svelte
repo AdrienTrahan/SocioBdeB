@@ -10,6 +10,7 @@
 	export let stopMediaStream = null;
 	export let startMediaStream = null;
 	export let useFlashLight = false;
+	export let isTorchOn = false;
 	const dispatch = createEventDispatcher();
 
 	$: active = !result;
@@ -70,10 +71,12 @@
 	export function enableFlash() {  
 		let track = $stream.getVideoTracks()[0];
 		track.applyConstraints({ advanced: [{torch: true}]});
+		isTorchOn = true;
 	}
 	export function disableFlash() {  
 		let track = $stream.getVideoTracks()[0];
 		track.applyConstraints({ advanced: [{torch: false}]});
+		isTorchOn = false;
 	}
 	$: if ($status === 'resolved' && video !== null && $stream) {
 
