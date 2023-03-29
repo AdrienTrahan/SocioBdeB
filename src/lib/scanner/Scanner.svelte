@@ -9,7 +9,7 @@
 	export let result = undefined;
 	export let stopMediaStream = null;
 	export let startMediaStream = null;
-
+	export let useFlashLight = false;
 	const dispatch = createEventDispatcher();
 
 	$: active = !result;
@@ -67,18 +67,23 @@
 			startCapturing();
 		}
 	};
-	function onCapabilitiesReady(capabilities) {  
+	export function enableFlash() {  
 		let track = $stream.getVideoTracks()[0];
 		track.applyConstraints({ advanced: [{torch: true}]});
-
 	}
-
+	export function disableFlash() {  
+		let track = $stream.getVideoTracks()[0];
+		track.applyConstraints({ advanced: [{torch: false}]});
+	}
 	$: if ($status === 'resolved' && video !== null && $stream) {
 
 		let track = $stream.getVideoTracks()[0];
 		video.addEventListener('loadedmetadata', (e) => {
-			console.log(track.getCapabilities());
-			onCapabilitiesReady()
+			if (track.getCapabilities().torch){
+				useFlashLight = true;
+			}else{
+				useFlashLight = false;
+			}
 		});
 
 		video.srcObject = $stream;
