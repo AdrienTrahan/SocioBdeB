@@ -16,7 +16,6 @@
 <input type="password" placeholder="password" bind:value={password}>
 <button on:click={async () => {error = (await login(email, password)).split("Firebase: ")[1]}}>log in</button>
 <p class="error">{error}</p>
-a
 <style>
     .error{
         color: red;
