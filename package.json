@@ -23,6 +23,7 @@
 	"dependencies": {
 		"@sveltejs/adapter-static": "^2.0.1",
 		"@vitejs/plugin-basic-ssl": "^1.0.1",
+		"firebase": "^9.18.0",
 		"html5-qrcode": "^2.3.7",
 		"jsqr": "^1.4.0",
 		"vite-plugin-mkcert": "^1.13.4"

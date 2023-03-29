@@ -111,10 +111,6 @@
 		</video>
 	</div>
 </div>
-<button on:click={() => {
-	let track = $stream.getVideoTracks()[0];
-	track.applyConstraints({ advanced: [{torch: true}]});
-}}></button>
 
 
 <style>
