@@ -67,9 +67,23 @@
 			startCapturing();
 		}
 	};
+	function onCapabilitiesReady(capabilities) {  
+		let track = $stream.getVideoTracks()[0];
+		track.applyConstraints({ advanced: [{torch: true}]});
+
+	}
 
 	$: if ($status === 'resolved' && video !== null && $stream) {
+
+		let track = $stream.getVideoTracks()[0];
+		video.addEventListener('loadedmetadata', (e) => {
+			console.log(track.getCapabilities());
+			onCapabilitiesReady()
+		});
+
 		video.srcObject = $stream;
+
+		
 		video.play().catch(console.error);
 	}
 
@@ -89,6 +103,10 @@
 		</video>
 	</div>
 </div>
+<button on:click={() => {
+	let track = $stream.getVideoTracks()[0];
+	track.applyConstraints({ advanced: [{torch: true}]});
+}}></button>
 
 
 <style>
