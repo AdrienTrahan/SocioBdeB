@@ -26,8 +26,6 @@
 	}
 
 	function setStatus(params: string) {
-		console.log(`Setting status ${params}`);
-
 		$status = params as any;
 	}
 
@@ -42,7 +40,6 @@
 		}
 
 		function setStream(params: MediaStream) {
-			console.log(`Setting stream`, { params });
 			$stream = params as any;
 		}
 

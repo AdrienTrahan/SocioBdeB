@@ -4,14 +4,11 @@
 
 	import jsQR from 'jsqr';
 
-	import ScannerBorders from './ScannerBorders.svelte';
-	import Results from './Results.svelte';
-
 	import UserMedia from './use-usermedia.svelte';
 
-	export let result = null;
+	export let result = undefined;
 	export let stopMediaStream = null;
-	let startMediaStream;
+	export let startMediaStream = null;
 
 	const dispatch = createEventDispatcher();
 
@@ -28,7 +25,6 @@
 		({ stopMediaStream, startMediaStream } = useUserMedia());
 
 		return () => {
-			console.log('Component destroyed');
 			stopMediaStream();
 			video.srcObject = null;
 		};
@@ -49,19 +45,15 @@
 		const qrCode = jsQR(imageData.data, width, height);
 
 		if (qrCode === null) {
-			console.log('timeout');
 			setTimeout(startCapturing, 750);
 		} else {
 			result = qrCode.data;
 			dispatch('successfulScan', qrCode.data);
-
-			stopMediaStream();
 			video.srcObject = null;
 		}
 	};
 
 	const handleCanPlay = (): void => {
-		console.log('canplay');
 		if (canvas === null || canvas === null || video === null || video === null) {
 			return;
 		}
@@ -77,7 +69,6 @@
 	};
 
 	$: if ($status === 'resolved' && video !== null && $stream) {
-		console.log('Resolve, stream');
 		video.srcObject = $stream;
 		video.play().catch(console.error);
 	}
@@ -89,69 +80,42 @@
 
 <UserMedia bind:useUserMedia />
 
-<div class={`scanner ${active ? '' : 'scanner--hidden'}`}>
+<div class="scannerContainer">
 	<div class="scanner__aspect-ratio-container">
 		<canvas bind:this={canvas} class="scanner__canvas" />
 		<!-- svelte-ignore a11y-media-has-caption -->
 		<video playsInline bind:this={video} on:canplay={handleCanPlay} class="scanner__video">
 			<!-- <track kind="captions" /> -->
 		</video>
-		<ScannerBorders />
-	</div>
-
-	<div class="scanner-tip">
-		<div>Scan a QR code with your camera to see what it says.</div>
 	</div>
 </div>
 
-<slot {result}>
-	<Results active={result !== null} decodedData={result} onNewScan={() => (result = null)} />
-</slot>
 
 <style>
-	.scanner {
+	.scannerContainer {
 		width: 100%;
-		max-width: 500px;
-	}
-
-	.scanner--hidden {
-		display: none;
+		max-width: 400px;
+		overflow: hidden;
+		border-radius: 5px;
 	}
 
 	.scanner__aspect-ratio-container {
 		position: relative;
-
 		overflow: hidden;
-
 		padding-bottom: 100%;
-
-		border-radius: 10%;
+		border-radius: 0px;
 	}
 
 	.scanner__video {
 		position: absolute;
 		top: 0;
 		left: 0;
-
 		width: 100%;
 		height: 100%;
-
-		border-radius: inherit;
-
 		outline: none;
 		object-fit: cover;
 	}
-
 	.scanner__canvas {
 		display: none;
-	}
-
-	.scanner-tip {
-		display: flex;
-		justify-content: center;
-
-		margin-top: 15px;
-
-		font-size: 0.8rem;
 	}
 </style>
