@@ -8,7 +8,7 @@
     let error = "";
     authStore.subscribe((value) => {
         if (value.isLoggedIn && browser && value.firebaseControlled){
-            goto("../")
+            goto("./")
         }
     })
 </script>
