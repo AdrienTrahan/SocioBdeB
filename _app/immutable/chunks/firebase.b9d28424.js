@@ -1,4 +1,4 @@
-import{j as Y,w as lr}from"./singletons.1da873ed.js";const dr=!0,zl=dr;Y.disable_scroll_handling;const ql=Y.goto;Y.invalidate;Y.invalidateAll;Y.preload_data;Y.preload_code;Y.before_navigate;Y.after_navigate;/**
+import{j as Y,w as lr}from"./singletons.fb16ea7f.js";const dr=!0,zl=dr;Y.disable_scroll_handling;const ql=Y.goto;Y.invalidate;Y.invalidateAll;Y.preload_data;Y.preload_code;Y.before_navigate;Y.after_navigate;/**
  * @license
  * Copyright 2017 Google LLC
  *
