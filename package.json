@@ -6,7 +6,7 @@
 		"dev": "vite dev --host",
 		"build": "vite build",
 		"preview": "vite preview",
-		"release": "npm run build && git add . && git commit -m \"another release\" && git push --allow-empty && git subtree push --prefix dist origin gh-pages --allow-empty",
+		"release": "npm run build && git add . && git commit -m \"another release\" && git push && git subtree push --prefix dist origin gh-pages",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch"
 	},
